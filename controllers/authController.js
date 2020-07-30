@@ -34,7 +34,7 @@ router.post("/login", (req, res) => {
 });
 
 // POST - CREATE NEW USER FROM SIGNUP
-router.post("/", (req, res) => {
+router.post("/signup", (req, res) => {
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return res.status(500).json(err);
 
