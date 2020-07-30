@@ -1,8 +1,16 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const UserModel = require("../models").User;
+
+// SIGN OUT ROUTE
+router.get("/clear_cookie", (req, res) => {
+  res.clearCookie("jwtProject");
+  res.redirect("/");
+});
 
 // GET SIGNUP FORM
 router.get("/signup", (req, res) => {
@@ -24,6 +32,18 @@ router.post("/login", (req, res) => {
     if (foundUser) {
       bcrypt.compare(req.body.password, foundUser.password, (err, match) => {
         if (match) {
+          const token = jwt.sign(
+            {
+              username: foundUser.username,
+              id: foundUser.id,
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "30 days",
+            }
+          );
+          console.log(token);
+          res.cookie("jwt", token); // SEND A NEW COOKIE TO THE BROWSER TO STORE TOKEN
           res.redirect(`/users/profile/${foundUser.id}`);
         } else {
           return res.sendStatus(400);
@@ -44,6 +64,18 @@ router.post("/signup", (req, res) => {
 
       UserModel.create(req.body)
         .then((newUser) => {
+          const token = jwt.sign(
+            {
+              username: newUser.username,
+              id: newUser.id,
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "30 days",
+            }
+          );
+          console.log(token);
+          res.cookie("jwt", token); // SEND A NEW COOKIE TO THE BROWSER TO STORE TOKEN
           res.redirect(`/users/profile/${newUser.id}`);
         })
         .catch((err) => {
