@@ -23,9 +23,15 @@
 
 You have the following routes available.
 
+#### controllers/authController.js
+
 - GET and POST `localhost:3000/auth/signup`
 - GET and POST `localhost:3000/auth/login`
 - GET `localhost:3000/auth/logout`
+
+#### controllers/usersController.js
+
+- GET `localhost:3000/profile/:id`
 
 <br>
 
