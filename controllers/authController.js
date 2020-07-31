@@ -7,14 +7,47 @@ const jwt = require("jsonwebtoken");
 const UserModel = require("../models").User;
 
 // SIGN OUT ROUTE
-router.get("/clear_cookie", (req, res) => {
-  res.clearCookie("jwtProject");
+router.get("/logout", (req, res) => {
+  res.clearCookie("jwt");
   res.redirect("/");
 });
 
 // GET SIGNUP FORM
 router.get("/signup", (req, res) => {
   res.render("users/signup.ejs");
+});
+
+// POST - CREATE NEW USER FROM SIGNUP
+router.post("/signup", (req, res) => {
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return res.status(500).json(err);
+
+    bcrypt.hash(req.body.password, salt, (err, hashedPwd) => {
+      if (err) return res.status(500).json(err);
+      req.body.password = hashedPwd;
+
+      UserModel.create(req.body)
+        .then((newUser) => {
+          const token = jwt.sign(
+            {
+              username: newUser.username,
+              id: newUser.id,
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "30 days",
+            }
+          );
+          console.log(token);
+          res.cookie("jwt", token); // SEND A NEW COOKIE TO THE BROWSER TO STORE TOKEN
+          res.redirect(`/users/profile/${newUser.id}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send(`err ${err}`);
+        });
+    });
+  });
 });
 
 // GET LOGIN
@@ -50,39 +83,6 @@ router.post("/login", (req, res) => {
         }
       });
     }
-  });
-});
-
-// POST - CREATE NEW USER FROM SIGNUP
-router.post("/signup", (req, res) => {
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) return res.status(500).json(err);
-
-    bcrypt.hash(req.body.password, salt, (err, hashedPwd) => {
-      if (err) return res.status(500).json(err);
-      req.body.password = hashedPwd;
-
-      UserModel.create(req.body)
-        .then((newUser) => {
-          const token = jwt.sign(
-            {
-              username: newUser.username,
-              id: newUser.id,
-            },
-            process.env.JWT_SECRET,
-            {
-              expiresIn: "30 days",
-            }
-          );
-          console.log(token);
-          res.cookie("jwt", token); // SEND A NEW COOKIE TO THE BROWSER TO STORE TOKEN
-          res.redirect(`/users/profile/${newUser.id}`);
-        })
-        .catch((err) => {
-          console.log(err);
-          res.send(`err ${err}`);
-        });
-    });
   });
 });
 

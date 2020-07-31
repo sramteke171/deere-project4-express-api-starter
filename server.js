@@ -6,15 +6,17 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
 const verifyToken = (req, res, next) => {
-  let token = req.cookies.jwt; // COOKIE PARSER GIVES YOU A .cookies PROP, WE NAMED OUR TOKEN jwt
+  let token = req.cookies.jwt;
+  // COOKIE PARSER GIVES YOU A .cookies PROP, WE NAMED OUR TOKEN jwt
 
-  console.log("Cookies: ", req.cookies.jwtProject);
+  console.log("Cookies: ", req.cookies.jwt);
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
     if (err || !decodedUser) {
       return res.status(401).json({ error: "Unauthorized Request" });
     }
-    req.user = decodedUser; // ADDS A .user PROP TO REQ FOR TOKEN USER
+    req.user = decodedUser;
+    // ADDS A .user PROP TO REQ FOR TOKEN USER
     console.log(decodedUser);
 
     next();
