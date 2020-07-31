@@ -15,7 +15,7 @@
 1. Sequelize is included in the app. You have a `User` model. Run `db:migrate` to create the `Users` table in your database.
 1. Run `nodemon` and go to the Homepage: `localhost:3000/`
 
-![](https://i.imgur.com/943BDFS.png)
+![](https://i.imgur.com/uuhrOxQ.png)
 
 <br>
 
