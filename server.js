@@ -8,7 +8,6 @@ const cookieParser = require("cookie-parser");
 const verifyToken = (req, res, next) => {
   let token = req.cookies.jwt;
   // COOKIE PARSER GIVES YOU A .cookies PROP, WE NAMED OUR TOKEN jwt
-
   console.log("Cookies: ", req.cookies.jwt);
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
@@ -23,6 +22,7 @@ const verifyToken = (req, res, next) => {
   });
 };
 
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", require("./controllers/authController.js"));
-app.use("/users", require("./controllers/usersController.js"));
+app.use("/users", verifyToken, require("./controllers/usersController.js"));
 
 app.listen(process.env.PORT, () => {
   console.log("Nodemon listening");
