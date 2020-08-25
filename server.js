@@ -4,7 +4,11 @@ const app = express();
 const methodOverride = require("method-override");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const createError = require("http-errors");
 
+var db = require("./models");
+db.sequelize.sync();
 // make change
 
 const verifyToken = (req, res, next) => {
@@ -23,9 +27,9 @@ const verifyToken = (req, res, next) => {
     next();
   });
 };
-
+app.use(cors());
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
@@ -35,7 +39,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", require("./controllers/authController.js"));
-app.use("/users", verifyToken, require("./controllers/usersController.js"));
+app.use("/users", require("./controllers/usersController.js"));
 
 app.listen(process.env.PORT, () => {
   console.log("Nodemon listening");
