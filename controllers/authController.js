@@ -12,11 +12,6 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-// GET SIGNUP FORM
-router.get("/signup", (req, res) => {
-  res.render("users/signup.ejs");
-});
-
 // POST - CREATE NEW USER FROM SIGNUP
 router.post("/signup", (req, res) => {
   console.log(req.body);
@@ -50,11 +45,6 @@ router.post("/signup", (req, res) => {
         });
     });
   });
-});
-
-// GET LOGIN
-router.get("/login", (req, res) => {
-  res.render("users/login.ejs");
 });
 
 // POST LOGIN

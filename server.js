@@ -7,9 +7,9 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const createError = require("http-errors");
 
-var db = require("./models");
+// This is some sequelize magic that will automatically create the tables in your database by syncing with your Sequelize models.
+const db = require("./models");
 db.sequelize.sync();
-// make change
 
 const verifyToken = (req, res, next) => {
   let token = req.cookies.jwt;
@@ -31,11 +31,10 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(methodOverride("_method"));
-app.use(express.static("public"));
 
 // HOMEPAGE
 app.get("/", (req, res) => {
-  res.render("users/index.ejs");
+  res.json({ message: "express api app is working" });
 });
 
 app.use("/api/auth", require("./controllers/authController.js"));
