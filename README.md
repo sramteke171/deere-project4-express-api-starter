@@ -27,15 +27,7 @@ app.use("/api/users", require("./controllers/usersController.js"));
    $ createdb project4_development
    ```
 
-1. Sequelize is included in the app. You have a `User` model. This app contains some Sequelize magic in `server.js` that will automatically create the tables in your database by syncing with your models. This `sync()` will occur each time `nodemon` refreshes.
-
-   ```js
-   // server.js
-   const db = require("./models");
-   db.sequelize.sync();
-   ```
-
-   Note: You'll need to `db:migrate` when you create future migrations like `addColumn`,etc..
+1. Sequelize is included in the app. You have a `User` model. Run `db:migrate` to create the `Users` table in your database.
 
 1. Run `nodemon`.
 1. Open Postman to confirm that your app is working on `localhost:3000/`.

@@ -4,13 +4,9 @@ const router = express.Router();
 const UserModel = require("../models").User;
 
 // GET USERS PROFILE
-router.get("/profile/:id", (req, res) => {
-  console.log(req.user);
-  UserModel.findByPk(req.params.id).then((userProfile) => {
-    res.json({
-      user: userProfile,
-    });
-  });
+router.get("/profile/:id", async (req, res) => {
+  let user = await UserModel.findByPk(req.params.id);
+  res.json({ user });
 });
 
 module.exports = router;
