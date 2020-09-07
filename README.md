@@ -4,13 +4,11 @@ This app serves JSON data only. There are no views. You'll build a React app to 
 
 Note - this app has no views and each endpoint is prefaced with `/api`.
 
-   ```js
-   // server.js
-   app.use("/api/auth", require("./controllers/authController.js"));
-   app.use("/api/users", require("./controllers/usersController.js"));
-   ```
-
-
+```js
+// server.js
+app.use("/api/auth", require("./controllers/authController.js"));
+app.use("/api/users", require("./controllers/usersController.js"));
+```
 
 ## Set Up
 
@@ -28,9 +26,8 @@ Note - this app has no views and each endpoint is prefaced with `/api`.
    ```
    $ createdb project4_development
    ```
-2. Sequelize is included in the app. You have a `User` model. Run `db:migrate` to create the `Users` table in your database.
 
-3. This app contains some Sequelize magic in `server.js` that will automatically create the tables in your database by syncing with your models and migrations. This will happen when you start your `nodemon` server.
+1. Sequelize is included in the app. You have a `User` model. This app contains some Sequelize magic in `server.js` that will automatically create the tables in your database by syncing with your models. This `sync()` will occur each time `nodemon` refreshes.
 
    ```js
    // server.js
@@ -38,8 +35,10 @@ Note - this app has no views and each endpoint is prefaced with `/api`.
    db.sequelize.sync();
    ```
 
-4. Run `nodemon`. 
-5. Open Postman to confirm that your app is working on `localhost:3000/`.
+   Note: You'll need to `db:migrate` when you create future migrations like `addColumn`,etc..
+
+1. Run `nodemon`.
+1. Open Postman to confirm that your app is working on `localhost:3000/`.
 
 ![](https://i.imgur.com/VEkRBk9.png)
 
@@ -65,8 +64,19 @@ You have the following routes available.
 
 <br>
 
+## To Deploy
+
+- [Project 4 Starter Code Heroku Deployment Link](https://deere-project4-express.herokuapp.com/)
+
+  ![](https://i.imgur.com/hy2jymA.png)
+
+- [node-express-heroku-deployment](https://git.generalassemb.ly/jdr-0622/node-express-heroku-deployment)
+
+<br>
+
 ## Additional Resources
 
+- [Sequelize Docs](https://sequelize.org/master/)
 - [Fruit App Solution](https://git.generalassemb.ly/jdr-0622/fruit-app-in-class)
 - [Pokemon Express Solution](https://git.generalassemb.ly/jdr-0622/pokemon-express-sequelize6)
 - [Google Routes Spreadsheet](https://docs.google.com/spreadsheets/d/14-LHKXLtEkp_vKEz3qSKjREnrmSyzQ9fimTlmrPsZsQ/edit#gid=0)
