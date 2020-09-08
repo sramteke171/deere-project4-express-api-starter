@@ -27,7 +27,7 @@ app.use("/api/users", require("./controllers/usersController.js"));
    $ createdb project4_development
    ```
 
-1. Sequelize is included in the app. You have a `User` model. Run `db:migrate` to create the `Users` table in your database.
+1. Sequelize is included in the app. You have a `User` model. Run `npx sequelize db:migrate` to create the `Users` table in your database.
 
 1. Run `nodemon`.
 1. Open Postman to confirm that your app is working on `localhost:3000/`.
