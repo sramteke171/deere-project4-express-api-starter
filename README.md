@@ -21,10 +21,10 @@ app.use("/api/users", require("./controllers/usersController.js"));
    JWT_SECRET=pancakes
    ```
 
-1. Check out your `config/config.json` file. You'll need to create a database called `project4_development` in pgAdmin or from any directory in the Terminal:
+1. Check out your `config/config.json` file. You'll need to create a database called `project4_development` (or feel free to rename the database) in pgAdmin or from any directory in the Terminal:
 
    ```
-   $ createdb project4_development
+   createdb project4_development
    ```
 
 1. Sequelize is included in the app. You have a `User` model. Run `npx sequelize db:migrate` to create the `Users` table in your database.
