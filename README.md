@@ -58,11 +58,11 @@ You have the following routes available.
 
 ## To Deploy
 
+- [Heroku Node Express Deployment](https://git.generalassemb.ly/jdr-0622/node-express-heroku-deployment)
+- [Heroku React Deployment](https://blog.heroku.com/deploying-react-with-zero-configuration#create-and-deploy-a-react-app-in-two-minutes)
 - [Project 4 Starter Code Heroku Deployment Link](https://deere-project4-express.herokuapp.com/)
 
   ![](https://i.imgur.com/hy2jymA.png)
-
-- [node-express-heroku-deployment](https://git.generalassemb.ly/jdr-0622/node-express-heroku-deployment)
 
 <br>
 
