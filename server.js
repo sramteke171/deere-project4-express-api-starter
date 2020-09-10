@@ -9,6 +9,7 @@ const createError = require("http-errors");
 
 const verifyToken = (req, res, next) => {
   let token = req.cookies.jwt;
+
   // COOKIE PARSER GIVES YOU A .cookies PROP, WE NAMED OUR TOKEN jwt
   console.log("Cookies: ", req.cookies.jwt);
 
